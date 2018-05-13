@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-class MyGdxThird : ApplicationAdapter() {
+class HexGdx : ApplicationAdapter() {
   private lateinit var batch: SpriteBatch
   private lateinit var img: Texture
 
