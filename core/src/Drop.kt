@@ -10,7 +10,7 @@ import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector3
 
-class HexGdx : ApplicationAdapter() {
+class Drop : ApplicationAdapter() {
   private lateinit var dropImage: Texture
   private lateinit var bucketImage: Texture
   private lateinit var dropSound: Sound
