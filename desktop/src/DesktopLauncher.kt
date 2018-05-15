@@ -1,6 +1,7 @@
+package drop
+
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
-import Drop
 
 class DesktopLauncher {
   companion object {
