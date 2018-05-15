@@ -46,8 +46,8 @@ class Drop : ApplicationAdapter() {
     rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"))
 
     // start the playback of the background music immediately
-//    rainMusic.setLooping(true)
-//    rainMusic.play()
+    rainMusic.setLooping(true)
+    rainMusic.play()
 
     camera = OrthographicCamera()
     camera.setToOrtho(false, 800f, 480f)
@@ -107,10 +107,19 @@ class Drop : ApplicationAdapter() {
       var raindrop = iter.next()
       raindrop.y -= 200 * Gdx.graphics.getDeltaTime()
       if (raindrop.y + 64 < 0) iter.remove()
+
+      if (raindrop.overlaps(bucket)) {
+        dropSound.play()
+        iter.remove()
+      }
     }
   }
 
   override fun dispose() {
+    dropImage.dispose()
+    bucketImage.dispose()
+    dropSound.dispose()
+    rainMusic.dispose()
     batch.dispose()
   }
 }
