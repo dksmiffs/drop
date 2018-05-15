@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Rectangle
+import com.badlogic.gdx.math.Vector3
 
 class HexGdx : ApplicationAdapter() {
   private lateinit var dropImage: Texture
@@ -15,6 +16,7 @@ class HexGdx : ApplicationAdapter() {
   private lateinit var rainMusic: Music
   private lateinit var batch: SpriteBatch
 	private lateinit var bucket: Rectangle
+	private lateinit var touchPos: Vector3
   // The camera ensures we can render using our target resolution of 800x480
   //    pixels no matter what the screen resolution is.
   private lateinit var camera: OrthographicCamera
@@ -39,6 +41,8 @@ class HexGdx : ApplicationAdapter() {
 		bucket.y = 20f
 		bucket.width = 64f
 		bucket.height = 64f
+
+		touchPos = Vector3()
   }
 
   override fun render() {
@@ -53,11 +57,18 @@ class HexGdx : ApplicationAdapter() {
     batch.begin()
 		batch.draw(bucketImage, bucket.x, bucket.y)
     batch.end()
+
+		if (Gdx.input.isTouched()) {
+			touchPos.set(Gdx.input.getX().toFloat(),
+			             Gdx.input.getY().toFloat(),
+									 0f)
+			camera.unproject(touchPos)
+			bucket.x = touchPos.x - 64f/2f
+		}
   }
 
   override fun dispose() {
     batch.dispose()
   }
-
 }
 
