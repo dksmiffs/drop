@@ -7,8 +7,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.Input.Keys
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector3
+import com.badlogic.gdx.utils.Array
+import com.badlogic.gdx.utils.TimeUtils
 
 class Drop : ApplicationAdapter() {
   private lateinit var dropImage: Texture
@@ -21,6 +24,18 @@ class Drop : ApplicationAdapter() {
   // The camera ensures we can render using our target resolution of 800x480
   //    pixels no matter what the screen resolution is.
   private lateinit var camera: OrthographicCamera
+  private lateinit var raindrops: Array<Rectangle> // gdx, not Kotlin Array
+  private var lastDropTime: Long = 0L
+
+  private fun spawnRaindrop() {
+    var raindrop = Rectangle()
+    raindrop.x = MathUtils.random(0f, 800f-64f)
+    raindrop.y = 480f
+    raindrop.width = 64f
+    raindrop.height = 64f
+    raindrops.add(raindrop)
+    lastDropTime = TimeUtils.nanoTime()
+  }
 
   override fun create() {
     batch = SpriteBatch()
@@ -44,6 +59,9 @@ class Drop : ApplicationAdapter() {
     bucket.height = 64f
 
     touchPos = Vector3()
+
+    raindrops = Array<Rectangle>()
+    spawnRaindrop()
   }
 
   override fun render() {
@@ -57,6 +75,9 @@ class Drop : ApplicationAdapter() {
     batch.setProjectionMatrix(camera.combined)
     batch.begin()
     batch.draw(bucketImage, bucket.x, bucket.y)
+    for (raindrop in raindrops) {
+      batch.draw(dropImage, raindrop.x, raindrop.y)
+    }
     batch.end()
 
     if (Gdx.input.isTouched()) {
@@ -78,6 +99,15 @@ class Drop : ApplicationAdapter() {
 
     if (bucket.x < 0f) bucket.x = 0f
     if (bucket.x > 800f-64f) bucket.x = 800f-64f
+
+    if (TimeUtils.nanoTime() - lastDropTime > 1_000_000_000L) spawnRaindrop()
+
+    var iter = raindrops.iterator()
+    while (iter.hasNext()) {
+      var raindrop = iter.next()
+      raindrop.y -= 200 * Gdx.graphics.getDeltaTime()
+      if (raindrop.y + 64 < 0) iter.remove()
+    }
   }
 
   override fun dispose() {
