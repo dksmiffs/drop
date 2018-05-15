@@ -5,6 +5,7 @@ A Kotlin version of [a simple game](https://github.com/libgdx/libgdx/wiki/A-simp
 ## Code Example
 
 Run this code using the following at a Windows command prompt:
+
     gradle desktop:run
 
 ## Motivation
