@@ -1,7 +1,8 @@
-import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.audio.Sound
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
@@ -13,12 +14,13 @@ import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.TimeUtils
 
-class Drop : ApplicationAdapter() {
+class Drop : Game() {
   private lateinit var dropImage: Texture
   private lateinit var bucketImage: Texture
   private lateinit var dropSound: Sound
   private lateinit var rainMusic: Music
   private lateinit var batch: SpriteBatch
+  private lateinit var font: BitmapFont
   // The camera ensures we can render using our target resolution of 800x480
   //    pixels no matter what the screen resolution is.
   private lateinit var camera: OrthographicCamera
@@ -55,6 +57,11 @@ class Drop : ApplicationAdapter() {
     camera.setToOrtho(false, 800f, 480f)
     batch = SpriteBatch()
 
+    // use LibGDX's default Arial font
+    font = BitmapFont()
+
+//    this.setScreen(MainMenuScreen(this))
+
     // create a Rectangle to logically represent the bucket
     bucket = Rectangle()
     bucket.x = 800f/2f - 64f/2f
@@ -71,6 +78,8 @@ class Drop : ApplicationAdapter() {
   }
 
   override fun render() {
+    super.render()  // important!
+
     // clear the screen with a dark blue color. The arguments to glClearColor
     //    are the RGB and alpha component in the range [0,1] of the color to
     //    be used to clear the screen.
@@ -138,6 +147,7 @@ class Drop : ApplicationAdapter() {
     dropSound.dispose()
     rainMusic.dispose()
     batch.dispose()
+    font.dispose()
   }
 }
 
