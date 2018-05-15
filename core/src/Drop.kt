@@ -21,6 +21,10 @@ class Drop : Game() {
   }
 
   override fun dispose() {
+    // per @rohansuri's suggestion here:
+    //    https://gist.github.com/sinistersnare/6367829#gistcomment-1661438
+    this.getScreen().dispose()
+
     batch.dispose()
     font.dispose()
   }
