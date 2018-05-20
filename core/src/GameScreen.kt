@@ -50,7 +50,7 @@ class GameScreen(val game: Drop) : Screen {
     rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"))
     rainMusic.setLooping(true)
 
-    // create the camera and the SpriteBatch
+    // create the camera
     camera = OrthographicCamera()
     camera.setToOrtho(false, 800f, 480f)
 
