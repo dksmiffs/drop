@@ -24,7 +24,7 @@ Dave used this tutorial to start learning both Kotlin and libGDX.
 ## Environment ##
 
 * Windows 10
-* OpenJDK 10.0.1 (built at [ojdkbuild](https://github.com/ojdkbuild/ojdkbuild))
+* OpenJDK 1.8.0_171-1 (built at [ojdkbuild](https://github.com/ojdkbuild/ojdkbuild))
 * Kotlin version 1.2.41-release-74
 * Gradle 4.7
 * libGDX 1.9.8
