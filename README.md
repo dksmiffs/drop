@@ -8,7 +8,7 @@ Run this code using the following at a Windows command prompt:
 
     gradle desktop:run
 
-## Acknowledgements ##
+## References ##
 
 * [Kotlin reference documents](https://kotlinlang.org/docs/reference/)
 * [libGDX API documents](https://libgdx.badlogicgames.com/ci/nightlies/docs/api/)
