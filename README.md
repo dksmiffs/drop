@@ -18,5 +18,5 @@ Run this code using the following at a Windows command prompt:
 * Windows 10
 * OpenJDK 1.8.0_171-1 (built at [ojdkbuild](https://github.com/ojdkbuild/ojdkbuild))
 * Kotlin version 1.2.41-release-74
-* Gradle 4.7
+* Gradle 4.8
 * libGDX 1.9.8
