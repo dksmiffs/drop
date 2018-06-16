@@ -1,43 +1,37 @@
 buildscript {
-    ext.kotlinVersion = '1.2.41'
+  ext.kotlin_version = '1.2.41'
+  ext.gdx_version = '1.9.8'
+  ext.appName = "drop"
 
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-    }
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+  }
 }
 
 allprojects {
-    version = '1.0'
-    ext {
-        appName = "drop"
-        gdxVersion = '1.9.8'
-    }
+  apply plugin: "kotlin"
 
-    repositories {
-        jcenter()
-    }
+  repositories {
+    jcenter()
+  }
 }
 
 project(":desktop") {
-    apply plugin: "kotlin"
-
-    dependencies {
-        compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    }
+  dependencies {
+    compile project(":core")
+    compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdx_version"
+    compile "com.badlogicgames.gdx:gdx-platform:$gdx_version:natives-desktop"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  }
 }
 
 project(":core") {
-    apply plugin: "kotlin"
-
-    dependencies {
-        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    }
+  dependencies {
+    compile "com.badlogicgames.gdx:gdx:$gdx_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  }
 }
 
