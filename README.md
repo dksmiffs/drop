@@ -2,7 +2,7 @@
 
 A Kotlin version of [a simple game] whose purpose is to introduce [libGDX].
 
-## Code Example ##
+## Usage ##
 
 Run this code using the following at a Windows command prompt:
 
