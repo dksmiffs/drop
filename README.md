@@ -1,4 +1,4 @@
-## drop ## [![ci-badge]][ci-travis]
+## drop [![ci-badge]][ci-travis]
 
 A Kotlin version of [a simple game] whose purpose is to introduce [libGDX].
 
