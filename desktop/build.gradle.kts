@@ -30,7 +30,7 @@ tasks {
     main = "drop.DesktopLauncher"
     classpath = java.sourceSets["main"].runtimeClasspath
     workingDir = File("../core/assets")
-//    ignoreExitValue = true
+    setIgnoreExitValue(true)
   }
 }
 
