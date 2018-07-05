@@ -1,5 +1,5 @@
 java {
-  val mainJavaSourceSet: SourceDirectorySet = sourceSets.getByName("main").java
-  mainJavaSourceSet.srcDir("src/")
+  val mainSourceSet: SourceDirectorySet = sourceSets.getByName("main").java
+  mainSourceSet.srcDir("src/")
 }
 
