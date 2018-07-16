@@ -1,3 +1,7 @@
+plugins {
+  kotlin("jvm")
+}
+
 // The "main" source set is added by the Java plugin, documented here:
 //    docs.gradle.org/current/userguide/java_plugin.html#sec:java_source_sets
 // java.srcDirs is a property of the source set specifying the source directory
@@ -32,5 +36,13 @@ tasks {
     workingDir = File("../core/assets")
     setIgnoreExitValue(true)
   }
+}
+
+dependencies {
+  val gdx_version = rootProject.extra.get("gdx_version")
+  compile(project(":core"))
+  compile(kotlin("stdlib"))
+  compile("com.badlogicgames.gdx:gdx-backend-lwjgl:$gdx_version")
+  compile("com.badlogicgames.gdx:gdx-platform:$gdx_version:natives-desktop")
 }
 
