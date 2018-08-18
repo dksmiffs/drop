@@ -2,17 +2,22 @@ package drop
 
 import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.audio.Sound
-import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Gdx.audio
+import com.badlogic.gdx.Gdx.files
+import com.badlogic.gdx.Gdx.gl
+import com.badlogic.gdx.Gdx.graphics
+import com.badlogic.gdx.Gdx.input
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.Input.Keys
-import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.math.MathUtils.random
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.utils.Array
-import com.badlogic.gdx.utils.TimeUtils
+import com.badlogic.gdx.utils.TimeUtils.nanoTime
+
 
 class GameScreen(val game: Drop) : Screen {
 
@@ -31,23 +36,23 @@ class GameScreen(val game: Drop) : Screen {
 
   private fun spawnRaindrop() {
     var raindrop = Rectangle()
-    raindrop.x = MathUtils.random(0f, 800f-64f)
+    raindrop.x = random(0f, 800f-64f)
     raindrop.y = 480f
     raindrop.width = 64f
     raindrop.height = 64f
     raindrops.add(raindrop)
-    lastDropTime = TimeUtils.nanoTime()
+    lastDropTime = nanoTime()
   }
 
   // initializer block
   init {
     // load the images for the droplet & bucket, 64x64 pixels each
-    dropImage = Texture(Gdx.files.internal("droplet.png"))
-    bucketImage = Texture(Gdx.files.internal("bucket.png"))
+    dropImage = Texture(files.internal("droplet.png"))
+    bucketImage = Texture(files.internal("bucket.png"))
 
     // load the drop sound effect and the rain background music
-    dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"))
-    rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"))
+    dropSound = audio.newSound(files.internal("drop.wav"))
+    rainMusic = audio.newMusic(files.internal("rain.mp3"))
     rainMusic.setLooping(true)
 
     // create the camera
@@ -74,8 +79,8 @@ class GameScreen(val game: Drop) : Screen {
     // clear the screen with a dark blue color. The arguments to glClearColor
     //    are the RGB and alpha component in the range [0,1] of the color to
     //    be used to clear the screen.
-    Gdx.gl.glClearColor(0f, 0f, 0.2f, 1f)
-    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+    gl.glClearColor(0f, 0f, 0.2f, 1f)
+    gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
     // generally good practice to update the camera's matrices once per frame
     camera.update()
@@ -95,20 +100,20 @@ class GameScreen(val game: Drop) : Screen {
     game.batch.end()
 
     // process user input
-    if (Gdx.input.isTouched()) {
-      touchPos.set(Gdx.input.getX().toFloat(),
-                   Gdx.input.getY().toFloat(),
+    if (input.isTouched()) {
+      touchPos.set(input.getX().toFloat(),
+                   input.getY().toFloat(),
                    0f)
       camera.unproject(touchPos)
       bucket.x = touchPos.x - 64f/2f
     }
-    if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+    if (input.isKeyPressed(Keys.LEFT)) {
       // getDeltaTime returns the time passed between the last and the current
       //    frame in seconds
-      bucket.x -= 200 * Gdx.graphics.getDeltaTime()
+      bucket.x -= 200 * graphics.getDeltaTime()
     }
-    if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-      bucket.x += 200 * Gdx.graphics.getDeltaTime()
+    if (input.isKeyPressed(Keys.RIGHT)) {
+      bucket.x += 200 * graphics.getDeltaTime()
     }
 
     // make sure the bucket stays within the screen bounds
@@ -118,7 +123,7 @@ class GameScreen(val game: Drop) : Screen {
       bucket.x = 800f-64f
 
     // check if we need to create a new raindrop
-    if (TimeUtils.nanoTime() - lastDropTime > 1_000_000_000L)
+    if (nanoTime() - lastDropTime > 1_000_000_000L)
       spawnRaindrop()
 
     // move the raindrops, remove any that are beneath the bottom edge of the
@@ -127,7 +132,7 @@ class GameScreen(val game: Drop) : Screen {
     var iter = raindrops.iterator()
     while (iter.hasNext()) {
       var raindrop = iter.next()
-      raindrop.y -= 200 * Gdx.graphics.getDeltaTime()
+      raindrop.y -= 200 * graphics.getDeltaTime()
       if (raindrop.y + 64 < 0)
         iter.remove()
 

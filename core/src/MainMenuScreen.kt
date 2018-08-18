@@ -1,6 +1,7 @@
 package drop
 
-import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Gdx.gl
+import com.badlogic.gdx.Gdx.input
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.Screen
@@ -28,8 +29,8 @@ class MainMenuScreen(val game: Drop) : Screen {
     // clear the screen with a dark blue color. The arguments to glClearColor
     //    are the RGB and alpha component in the range [0,1] of the color to
     //    be used to clear the screen.
-    Gdx.gl.glClearColor(0f, 0f, 0.2f, 1f)
-    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+    gl.glClearColor(0f, 0f, 0.2f, 1f)
+    gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
     // generally good practice to update the camera's matrices once per frame
     camera.update()
@@ -43,7 +44,7 @@ class MainMenuScreen(val game: Drop) : Screen {
     game.font.draw(game.batch, "Tap anywhere to begin!", 100f, 100f)
     game.batch.end()
 
-    if (Gdx.input.isTouched()) {
+    if (input.isTouched()) {
       game.setScreen(GameScreen(game))
       dispose()
     }
