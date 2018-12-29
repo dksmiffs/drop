@@ -1,9 +1,9 @@
 plugins {
-  kotlin("jvm") version "1.2.61"
+  kotlin("jvm") version "1.3.11"
 }
 
 buildscript {
-  extra.set("gdx_version", "1.9.8")
+  extra.set("gdx_version", "1.9.9")
 }
 
 allprojects {

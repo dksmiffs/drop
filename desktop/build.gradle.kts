@@ -2,16 +2,16 @@ plugins {
   kotlin("jvm")
 }
 
-// The "main" source set is added by the Java plugin, documented here:
-//    docs.gradle.org/current/userguide/java_plugin.html#sec:java_source_sets
-// java.srcDirs is a property of the source set specifying the source directory
-//    containing Java source.
+// sourcesets documented here:
+//    https://docs.gradle.org/current/userguide/kotlin_dsl.html
 //
 // Original Groovy DSL syntax:
 //    sourceSets.main.java.srcDirs = [ "src/" ]
-val mainSet: SourceDirectorySet = java.sourceSets.getByName("main").java
-mainSet.srcDir("src/")
-
+sourceSets {
+  main {
+    java.srcDir("src/")
+  }
+}
 
 // This guide provided some help for migrating a task from Groovy to Kotlin DSL:
 //    github.com/jnizet/gradle-kotlin-dsl-migration-guide#creating-a-task
@@ -20,7 +20,7 @@ mainSet.srcDir("src/")
 // Example of "dependsOn" usage in Kotlin DSL:
 //    github.com/gradle/kotlin-dsl-docs/blob/master/build.gradle.kts
 // Source that finally provided insight on setting classpath:
-//    github.com/JLLeitschuh/pmd-kotlin/blob/master/build.gradle.kts
+//    https://raw.githubusercontent.com/gradle/kotlin-dsl/9d4f2465571b3b8c30a3009951a85824018ca36f/subprojects/integ-tests/src/test/kotlin/org/gradle/kotlin/dsl/integration/ProjectSchemaAccessorsIntegrationTest.kt
 //
 // Original Groovy DSL syntax:
 //    task run(dependsOn: classes, type: JavaExec) {
@@ -32,7 +32,7 @@ mainSet.srcDir("src/")
 tasks {
   val run by creating(JavaExec::class) {
     main = "drop.DesktopLauncher"
-    classpath = java.sourceSets["main"].runtimeClasspath
+    classpath = sourceSets["main"].runtimeClasspath
     workingDir = File("../core/assets")
     setIgnoreExitValue(true)
   }

@@ -5,7 +5,7 @@ A Kotlin version of [a simple game] whose purpose is to introduce [libGDX].
 ## Usage
 
 1. [Install Gradle].
-2. From bash on Linux, or PowerShell or Git Bash on Windows, type `gradle desktop:run` from the top level of this project.
+2. From bash on Linux, or PowerShell or Git Bash on Windows, type `./gradlew desktop:run` from the top level of this project.
 
 ## References ##
 

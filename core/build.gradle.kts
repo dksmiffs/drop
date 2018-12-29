@@ -2,8 +2,11 @@ plugins {
   kotlin("jvm")
 }
 
-val mainSet: SourceDirectorySet = java.sourceSets.getByName("main").java
-mainSet.srcDir("src/")
+sourceSets {
+  main {
+    java.srcDir("src/")
+  }
+}
 
 dependencies {
   val gdx_version = rootProject.extra.get("gdx_version")
